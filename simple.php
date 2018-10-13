@@ -44,7 +44,6 @@ function SocketServer($limit = 0) {
         // останавливаем сервер после $limit секунд
         if ($limit && (time() - $starttime > $limit)) {
             echo 'Closing connection...' . PHP_EOL;
-            socket_shutdown($socket);
             socket_close($socket);
             echo 'SERVER STOP' . PHP_EOL;
             return;
@@ -57,4 +56,4 @@ set_time_limit(0);      // бесконечное время работы скр
 ob_implicit_flush();    // включаем вывод без буферизации
 
 // Запускаем сервер в работу, завершение работы через 60 секунд
-SocketServer(60);
+SocketServer(1);

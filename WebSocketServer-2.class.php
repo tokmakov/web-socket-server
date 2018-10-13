@@ -70,7 +70,9 @@ class WebSocketServer {
     }
 
     public function __destruct() {
-        $this->stopServer();
+        if (is_resource($this->connection)) {
+            $this->stopServer();
+        }
         if ($this->logging) {
             fclose($this->resource);
         }
@@ -182,13 +184,15 @@ class WebSocketServer {
      * Останавливает работу сервера
      */
     public function stopServer() {
+        fclose($this->connection); // закрываем слушающий сокет
         if (!empty($this->connects)) { // отправляем все клиентам сообщение о разрыве соединения
             foreach ($this->connects as $connect) {
-                fwrite($connect, self::encode('  Closed by server demand', 'close'));
-                fclose($connect);
+                if (is_resource($connect)) {
+                    fwrite($connect, self::encode('  Closed by server demand', 'close'));
+                    fclose($connect);
+                }
             }
         }
-        fclose($this->connection);
     }
 
     /**
