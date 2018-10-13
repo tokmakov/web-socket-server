@@ -1,0 +1,25 @@
+body > div {
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+span {
+    display: block;
+    margin-bottom: 2px;
+}
+input {
+    padding: 5px;
+    box-sizing: border-box;
+}
+input[type="text"] {
+    width: 100%;
+}
+input[type="button"] {
+    width: 25%;
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+div#socket-info {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
