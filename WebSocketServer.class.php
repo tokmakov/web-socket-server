@@ -184,7 +184,7 @@ class WebSocketServer {
                 // если клиент не прислал данных или хочет разорвать соединение
                 if (false === $decoded || 'close' === $decoded['type']) {
                     $this->debug('Connection closing');
-                    socket_write($connect, self::encode('  Closed by client demand', 'close'));
+                    socket_write($connect, self::encode('  Closed on client demand', 'close'));
                     socket_shutdown($connect);
                     socket_close($connect);
                     unset($this->connects[ array_search($connect, $this->connects) ]);
@@ -218,7 +218,7 @@ class WebSocketServer {
         if (!empty($this->connects)) { // отправляем все клиентам сообщение о разрыве соединения
             foreach ($this->connects as $connect) {
                 if (is_resource($connect)) {
-                    socket_write($connect, self::encode('  Closed by server demand', 'close'));
+                    socket_write($connect, self::encode('  Closed on server demand', 'close'));
                     socket_shutdown($connect);
                     socket_close($connect);
                 }
